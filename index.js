@@ -10,7 +10,7 @@ const server = express();
 server.use(cors());
 server.use(express.json());
 server.use(route);
-
+server.use('/uploads',express.static('./uploads'))
 const PORT = process.env.PORT || 3000;
 
 server.get("/", (req, res) => {

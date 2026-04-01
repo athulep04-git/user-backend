@@ -63,17 +63,23 @@ exports.updateUser = async (req, res) => {
   const { username, email, password } = req.body;
 
   try {
-    const upadtedUser = await user.findByIdAndUpdate(
+    const updatedData = {username,email,password};
+    if (req.file) {
+      updatedData.resume = req.file.filename;
+    }
+    const updatedUser = await user.findByIdAndUpdate(
       id,
-      { username, email, password },
-      { new: true },
+      updatedData,
+      { new: true }
     );
-
-    if (!upadtedUser) {
+    if (!updatedUser) {
       return res.status(404).json({ message: "user not found" });
     }
+    res.status(200).json({
+      message: "user details updated",
+      updatedUser
+    });
 
-    res.status(200).json({ message: "user details updated", upadtedUser });
   } catch (err) {
     res.status(500).json(err);
   }

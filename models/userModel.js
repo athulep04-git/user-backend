@@ -12,6 +12,9 @@ const userSchema=new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+    resume: {
+        type: String
     }
 })
 module.exports=mongoose.model('user',userSchema)
